@@ -15,7 +15,7 @@
 
 ## Documentation
 ***
-Report and documentation can be found on this [Documentation](https://github.com/jayantsolanki/Proj-4-Introduction-to-Deep-Learning-IntroToML-574/blob/master/proj4.pdf) link
+Report and documentation can be found on this [Documentation]() link
 
 ## Folder Tree
 ***
