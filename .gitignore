@@ -1,2 +1,6 @@
-# git does not allow empty directories.
-# Yet, we need to add this empty directory on git.
+
+doc/Technical-Doc
+doc/Technical-Doc/
+
+/doc/Technical-Doc
+/doc/Technical-Doc/
