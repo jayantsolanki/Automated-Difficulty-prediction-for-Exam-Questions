@@ -3,6 +3,7 @@ from sqlalchemy import *
 import pymysql
 import json
 import numpy as np
+import datetime
 # pip install mysqlclient
 pymysql.install_as_MySQLdb()
 
@@ -27,28 +28,41 @@ class MysqlDriver(object):
 		result = self.db.execute(query)
 		return result
 
-	def updateTags(self):
-		self.Question_Master=Table('Question_Master', self.metadata, autoload=True)
-		query = self.Question_Master.update().where(self.Question_Master.c.quid==5).values(name='user #5')
-		# query = self.Question_Master.select()
+	def updateTags(self, year, question_id, tag):
+		self.useDatabase()
+		self.Question_Master=Table('question_master', self.metadata, autoload=True)
+		query = self.Question_Master.update().where(self.Question_Master.c.year==year).where(self.Question_Master.c.quid==question_id).values(difficulty_level=tag, post_tag = tag, is_analysed = 1, updated_at=datetime.datetime.now())
 		result = self.db.execute(query)
-		return result
-	# def checkExistingTask(self):
+
+	def updateStat(self, taskId, progress, status, accuracy=0):
+		self.useDatabase()
+		self.analysis=Table('analysis', self.metadata, autoload=false)
+		query = self.analysis.update().where(self.analysis.c.id==taskId).values(progress=progress, status = status, accuracy = accuracy,  updated_at=datetime.datetime.now())
+		result = self.db.execute(query)
+	# def updateStat(self, taskId):
 	# 	self.analysis=Table('analysis', self.metadata, autoload=True)
 	# 	query = self.analysis.select()
-	# 	query.where(self.analysis.c.status == 10)#check if any task is still running
+	# 	# query = query.where(self.analysis.c.id == taskId)#check for current task
 	# 	result = self.db.execute(query)
-	# 	print(query)
 	# 	count = 0
 	# 	for row in result: # for getting the count
 	# 		count = count +1
-	# 		print(row)
-
+	# 		print(row.id)
+	# 		print(row.accuracy)
+	# 		print(row.status)
+	# 		print(row.algoUsed)
 	# 	return count
 
-	def updateStat(self, taskId, progress, status):
-		self.analysis=Table('analysis', self.metadata, autoload=True)
-		query = self.analysis.update().where(self.Question_Master.c.id==taskId).values(progress=progress, status = taskId)
+	def insertStats(self, taskId, imgpath, imgcap):
+		self.useDatabase()
+		self.stats=Table('stats', self.metadata, autoload=false)
+		query = self.stats.insert().values(task_id=taskId, img_path = imgpath, caption = imgcap, created_at=datetime.datetime.now(), updated_at=datetime.datetime.now())
+		result = self.db.execute(query)
+
+	def deleteStats(self, taskId):
+		self.useDatabase()
+		self.stats=Table('stats', self.metadata, autoload=false)
+		query = self.stats.delete().where(self.stats.c.task_id == taskId)
 		result = self.db.execute(query)
 
 	def insertData(self, data):

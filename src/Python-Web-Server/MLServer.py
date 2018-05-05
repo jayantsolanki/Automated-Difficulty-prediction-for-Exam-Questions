@@ -33,14 +33,12 @@ class DoAnalysis(tornado.web.RequestHandler):
     def post(self):
         year = self.get_argument("year")
         taskId = self.get_argument("taskId")
-        # print(taskId)
         self.db = MysqlDriver(DATABASE.host,DATABASE.username, DATABASE.password, DATABASE.dbname) # connect to MySql database server
-        self.dataset = self.db.getFeatures()
-        # km=KMeans( self.dataset, 50, 3, year, taskId)#initiatating ML algo
-        self.db.updateStat(8, 100, 0)
-        # MLthread = Thread(target = km.main, args=())
-        # MLthread.daemon = True  
-        # MLthread.start()
+        dataset = self.db.getFeatures()
+        km=KMeans(dataset,50,3, year, taskId)#initiatating ML algo
+        MLthread = Thread(target = km.main, args=())
+        MLthread.daemon = True  
+        MLthread.start()
         self.write("Request created")#send the response of requested created
         self.finish()
 
