@@ -29,9 +29,9 @@ class KMeans(object):
 	    return np.linalg.norm(a - b, axis=ax)
 
 	def main(self):
-
-		plt.rcParams['figure.figsize'] = (16, 9)
-		plt.style.use('ggplot')
+		self.plt = plt
+		self.plt.rcParams['figure.figsize'] = (16, 9)
+		self.plt.style.use('ggplot')
 		#delete older images in the stat for particular taskid
 		self.db.deleteStats(self.taskId)
 
@@ -59,16 +59,16 @@ class KMeans(object):
 		min_max_scaler = preprocessing.MinMaxScaler()
 		max_abs_scaler = preprocessing.MaxAbsScaler()
 		X = max_abs_scaler.fit_transform(X)
-		plt.scatter(X[:,0], X[:,1], c='black', s=7)
+		self.plt.scatter(X[:,0], X[:,1], c='black', s=7)
 		# plt.show()
 		# plt.savefig('%s/%s/%s/%s-%d/channels_round-%d.png'%(LOG_DIR,STR_GRAPHS,STR_CSETUP,TARGET_SETUP,this_setup+1,this_day*NUMBER_OF_ROUNDS+this_round+1))
 		# rrandom = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(12)])
-		title="initial-distribution of features in "+str(len(X))+' questions'
-		plt.title('%s'%(title))
-		plt.xlabel('feature1')
-		plt.ylabel('feature2')
+		title="Initial distribution of features in "+str(len(X))+' questions'
+		self.plt.title('%s'%(title))
+		self.plt.xlabel('feature1')
+		self.plt.ylabel('feature2')
 		imgpath = self.year+self.taskId+str(1)+'.png'
-		plt.savefig('%s'%(self.path+imgpath))
+		self.plt.savefig('%s'%(self.path+imgpath))
 		self.db.insertStats(self.taskId, imgpath, title)
 
 
@@ -121,20 +121,21 @@ class KMeans(object):
 			print(progress)
 			self.db.updateStat(self.taskId, progress, 1)
 		    
-
+		self.plt.rcParams['figure.figsize'] = (16, 9)
+		self.plt.style.use('ggplot')
 		colors = ['r', 'g', 'b', 'y', 'c', 'm']
-		fig, ax = plt.subplots()
+		fig, ax = self.plt.subplots()
 		for i in range(K):
 		        points = np.array([X[j] for j in range(len(X)) if saved_clusters[j] == i])
 		        ax.scatter(points[:, 0], points[:, 1], s=7, c=colors[i])
 		ax.scatter(saved_centroids[:, 0], saved_centroids[:, 1], marker='*', s=200, c='#050505')
 		# plt.show()
 		title="Distribution of features in 3 clusters along with final centroids for "+str(len(X))+' questions'
-		plt.title('%s'%(title))
-		plt.xlabel('feature1')
-		plt.ylabel('feature2')
+		self.plt.title('%s'%(title))
+		self.plt.xlabel('feature1')
+		self.plt.ylabel('feature2')
 		imgpath = self.year+self.taskId+str(2)+'.png'
-		plt.savefig('%s'%(self.path+imgpath))
+		self.plt.savefig('%s'%(self.path+imgpath))
 		self.db.insertStats(self.taskId, imgpath, title)
 		print(saved_centroids)
 
@@ -210,4 +211,5 @@ class KMeans(object):
 		print("\n Accuracy is %f \n" %(count/len(X)*100))
 		self.db.updateStat(self.taskId, 100, 2, count/len(X)*100)
 		print("Analysis Completed")
+		exit()
 

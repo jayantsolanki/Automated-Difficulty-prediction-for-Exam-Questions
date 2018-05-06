@@ -39,19 +39,6 @@ class MysqlDriver(object):
 		self.analysis=Table('analysis', self.metadata, autoload=false)
 		query = self.analysis.update().where(self.analysis.c.id==taskId).values(progress=progress, status = status, accuracy = accuracy,  updated_at=datetime.datetime.now())
 		result = self.db.execute(query)
-	# def updateStat(self, taskId):
-	# 	self.analysis=Table('analysis', self.metadata, autoload=True)
-	# 	query = self.analysis.select()
-	# 	# query = query.where(self.analysis.c.id == taskId)#check for current task
-	# 	result = self.db.execute(query)
-	# 	count = 0
-	# 	for row in result: # for getting the count
-	# 		count = count +1
-	# 		print(row.id)
-	# 		print(row.accuracy)
-	# 		print(row.status)
-	# 		print(row.algoUsed)
-	# 	return count
 
 	def insertStats(self, taskId, imgpath, imgcap):
 		self.useDatabase()
@@ -65,49 +52,3 @@ class MysqlDriver(object):
 		query = self.stats.delete().where(self.stats.c.task_id == taskId)
 		result = self.db.execute(query)
 
-	def insertData(self, data):
-		if len(data) > 0:
-			try:
-				query = self.orderBook.insert()
-				query.execute(data)
-				# print("Row insertion success")
-			except:
-				print("OMG!!! I failed at inserting data into the table")
-		else:
-			pass
-
-# method for allowing user get features from WeightedFeatures table
-	def selectData(self, params, arguments):
-		# chanId = arguments("exchange")
-		request = json.dumps({ k: arguments(k) for k in params })
-		request = json.loads(request)
-		query = self.orderBook.select()
-		numRows = 50 #default number of rows to be fetched unless specified
-		if 'price_greater_than' in request:
-			query = query.where(self.orderBook.c.price > float(request['price_greater_than']))
-			# print(query)
-
-		elif 'pair' in request:
-			query = query.where(self.orderBook.c.pairname == request['pair'])
-			# print(query)
-		elif 'exchange' in request:
-			query = query.where(self.orderBook.c.exchange == request['exchange'])
-		# else: #default snapshot, when user lands on the website
-			
-			
-		if 'numRows' in request:
-			numRows = int(request['numRows'])
-		query = query.order_by(desc(self.orderBook.c.id)) # for snapshot, recent rows
-		query = query.limit(numRows)
-		result = self.db.execute(query)
-		packet = []
-		for row in result:
-			payload = {
-				'transactionType': row.transactionType,
-				'price' : float(row.price),
-				'count' : float(row.count),
-				'exchange' : row.exchange,
-				'pairname' : row.pairname
-			}
-			packet.append(payload)
-		return (json.dumps(packet))
