@@ -33,13 +33,14 @@
 
 ## Documentation
 ***
-Report and documentation can be found on this [Documentation](https://github.com/jayantsolanki/Automated-Analysis-of-Selection-Test-Data/tree/master/docs)
+Report and documentation can be found on this [Documentation](https://github.com/jayantsolanki/Automated-Difficulty-prediction-for-Exam-Questions/tree/master/docs)
 
 ## Folder Tree
 ***
 * [**docs**](https://github.com/jayantsolanki/Automated-Difficulty-prediction-for-Exam-Questions/tree/master/docs) contains documentation and paper
-* [**release**](https://github.com/jayantsolanki/Automated-Difficulty-prediction-for-Exam-Questions/tree/master/release) contains implmentation codes and libraries
-* [**src**](https://github.com/jayantsolanki/Automated-Difficulty-prediction-for-Exam-Questions/tree/master/src) contains image data
+* [**src**](https://github.com/jayantsolanki/Automated-Difficulty-prediction-for-Exam-Questions/tree/master/src) contains codes
+  * 611-Proj-Ques-Eval-Frontend: Contains the Website
+  * Python-Web-Server: Provide REST APIs solution for running Machine Learning Algorithm
 
  
 ## Contributors
