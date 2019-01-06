@@ -26,9 +26,10 @@
 ## Implementation
 ***
 #### Workflow
-<img src="https://github.com/jayantsolanki/Automated-Analysis-of-Selection-Test-Data/tree/master/docs/PPT/block.jpg" width=80% height=80%>
+<img src="https://github.com/jayantsolanki/Automated-Difficulty-prediction-for-Exam-Questions/blob/master/docs/PPT/block.png" width=80% height=80%>
+
 #### Usecase
-<img src="https://github.com/jayantsolanki/Automated-Analysis-of-Selection-Test-Data/tree/master/docs/Technical-Doc/usecase.png" width=50% height=50%>
+<img src="https://github.com/jayantsolanki/Automated-Difficulty-prediction-for-Exam-Questions/blob/master/docs/PPT/usecase.png" width=50% height=50%>
 
 ## Documentation
 ***
@@ -47,7 +48,7 @@ Report and documentation can be found on this [Documentation](https://github.com
   
 ## Instructor
 ***
-Prof. Alan Hunt
+Prof. Alan Hunt, CSE Dept. University at Buffalo - SUNY
 
 ## Tech-stack
 * Machine Learning
@@ -62,7 +63,10 @@ Prof. Alan Hunt
   * Apache Server for deploying the Website
   * Bootstrap 3.6
   * Google Charts
-
+  
+## Acknowledgement
+***
+* e-Yantra, IIT-Bombay
 ## License
 ***
 This project is open-sourced under [MIT License](http://opensource.org/licenses/MIT)
