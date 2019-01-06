@@ -33,7 +33,7 @@
 
 ## Documentation
 ***
-Report and documentation can be found on this [Documentation](https://github.com/jayantsolanki/Automated-Analysis-of-Selection-Test-Data/tree/master/docs)
+Report and documentation can be found on this [Documentation](https://github.com/jayantsolanki/Automated-Difficulty-prediction-for-Exam-Questions/tree/master/docs)
 
 ## Folder Tree
 ***
